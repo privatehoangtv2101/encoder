@@ -14,3 +14,4 @@
 Route::get('/', function () {
     return view('login');
 });
+Route::get('login', 'Admin@login');

@@ -15,7 +15,7 @@
         <div id="app"></div>
         <div id="login-page-wrapper">
             <div id="login-form-wrapper">
-                <form id="login-form" method="post" action="{{action('Hello@action')}}">
+                <form id="login-form" method="post" action="{{action('Admin@login')}}">
                     <div id="form-title">Login Form</div>
                     <div class="input-field">
                         <input type="text" name="user_name" placeholder="Nhập username..."/>
