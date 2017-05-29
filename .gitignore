@@ -9,7 +9,3 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 /nbproject
-/public/css
-/public/js
-/public/fonts
-/public/mix-manifest.json
