@@ -28,3 +28,5 @@ script:
     - php artisan key:generate
     - php artisan config:clear
     - vendor/phpunit/phpunit/phpunit
+    - php artisan config:cache
+    - vendor/bin/behat
