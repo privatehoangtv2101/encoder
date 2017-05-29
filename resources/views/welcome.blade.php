@@ -6,10 +6,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title>Laravel</title>
-
+        <meta name="csrf-token" content="{{ csrf_token() }}">
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
-
+        <link rel="stylesheet" href="{{ mix('/css/app.css') }}">
         <!-- Styles -->
         <style>
             html, body {
@@ -90,6 +90,7 @@
                     <a href="https://github.com/laravel/laravel">GitHub</a>
                 </div>
             </div>
-        </div>
+        </div><link rel="stylesheet" href="{{ mix('/css/app.css') }}">
+        <script async defer src="{{ mix('/js/app.js') }}" type="text/javascript"></script>
     </body>
 </html>
