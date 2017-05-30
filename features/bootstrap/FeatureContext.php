@@ -27,4 +27,25 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
         
     }
 
+    /**
+     * @Given I have not logged in
+     */
+    public function iHaveNotLoggedIn() {
+        //nothing
+    }
+
+    /**
+     * @Given I have logged in
+     */
+    public function iHaveLoggedIn() {
+        throw new PendingException();
+    }
+
+    /**
+     * @Then /^(?:|I )should be redirect to "(?P<page>[^"]+)"$/
+     */
+    public function iShouldBeRedirectTo($page) {
+        $this->assertPageAddress($page);
+    }
+
 }

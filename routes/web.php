@@ -12,6 +12,14 @@
 */
 
 Route::get('/', function () {
+//    return view('login');
+//    $elo = new Domains\Admin\Repositories\AdminRepositoryEloquent();
+//    echo '<pre>';
+//    var_dump($elo->all()->toArray());
+//    echo '</pre>';
+});
+
+Route::post('login', 'Admin@login');
+Route::get('login', function () {
     return view('login');
 });
-Route::get('login', 'Admin@login');
