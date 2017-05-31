@@ -8,7 +8,7 @@ use Behat\Behat\Context\Context;
 use Behat\Behat\Context\SnippetAcceptingContext;
 use Behat\Gherkin\Node\PyStringNode;
 use Behat\Gherkin\Node\TableNode;
-use Behat\Behat\Event\ScenarioEvent;
+use Behat\Behat\Event\FeatureEvent;
 #This will be needed if you require "behat/mink-selenium2-driver"
 #use Behat\Mink\Driver\Selenium2Driver;
 use Behat\MinkExtension\Context\MinkContext;
@@ -34,14 +34,13 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
         ini_set('max_execution_time', 700);
     }
 
-    /** @BeforeScenario  */
+    /** @BeforeFeature  */
     public static function setupFeature() {
-        Artisan::call('migrate:rollback');
         Artisan::call('migrate');
         Artisan::call('db:seed');
     }
 
-    /** @AfterScenario */
+    /** @AfterFeature */
     public static function teardownFeature() {
         Artisan::call('migrate:rollback');
     }
