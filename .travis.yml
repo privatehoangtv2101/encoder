@@ -26,6 +26,7 @@ before_script:
     - sudo service apache2 restart
     
 script:
+    - php artisan migrate
     - php artisan key:generate
     - php artisan config:clear
     - vendor/phpunit/phpunit/phpunit
