@@ -35,13 +35,13 @@ class LoginTest extends TestCase {
             'name' => 'John Doe',
             'avatar' => 'http://example.com/dude-avatar.png',
             'email' => 'johndoe96@gmail.com',
-            'password' => 'ee0ed4686b8d188e90ae6c726e9e0f88',
+            'password' => '$2y$10$ywsjtDWV0f/28zVd.kD5Ue/uHad3ma3U7eybmm0LpFxf5eFtH6yea',
             'status' => AdminStatus::ACTIVE,
             'type' => AdminType::SUPER_ADMIN
         ));
 
         $admin = new Admin($adminRepositoryMock);
-        $actual_result = $admin->login('not_exist@gmail.com', 'existpass');
+        $actual_result = $admin->login('not_exist@gmail.com', '123123');
         $this->assertFalse($actual_result);
     }
 
@@ -53,7 +53,7 @@ class LoginTest extends TestCase {
             'name' => 'John Doe',
             'avatar' => 'http://example.com/dude-avatar.png',
             'email' => 'johndoe96@gmail.com',
-            'password' => 'ee0ed4686b8d188e90ae6c726e9e0f88',
+            'password' => '$2y$10$ywsjtDWV0f/28zVd.kD5Ue/uHad3ma3U7eybmm0LpFxf5eFtH6yea',
             'status' => AdminStatus::ACTIVE,
             'type' => AdminType::SUPER_ADMIN
         ));
@@ -70,12 +70,12 @@ class LoginTest extends TestCase {
             'name' => 'John Doe',
             'avatar' => 'http://example.com/dude-avatar.png',
             'email' => 'phatradang@gmail.com',
-            'password' => 'ee0ed4686b8d188e90ae6c726e9e0f88',
+            'password' => '$2y$10$ywsjtDWV0f/28zVd.kD5Ue/uHad3ma3U7eybmm0LpFxf5eFtH6yea',
             'status' => AdminStatus::DISABLE,
             'type' => AdminType::SUPER_ADMIN
         ));
         $admin = new Admin($adminRepositoryMock);
-        $actual_result = $admin->login('phatradang@gmail.com', 'existpass');
+        $actual_result = $admin->login('phatradang@gmail.com', '123123');
         $this->assertFalse($actual_result);
     }
 
@@ -87,7 +87,7 @@ class LoginTest extends TestCase {
             'name' => 'John Doe',
             'avatar' => 'http://example.com/dude-avatar.png',
             'email' => 'johndoe96@gmail.com',
-            'password' => 'ee0ed4686b8d188e90ae6c726e9e0f88',
+            'password' => '$2y$10$ywsjtDWV0f/28zVd.kD5Ue/uHad3ma3U7eybmm0LpFxf5eFtH6yea',
             'status' => AdminStatus::ACTIVE,
             'type' => AdminType::SUPER_ADMIN
         );
@@ -95,7 +95,7 @@ class LoginTest extends TestCase {
         $adminRepositoryMock = $this->createAdminRepositoryMock($adminDataStub);
         //TODO: test
         $admin = new Admin($adminRepositoryMock);
-        $actualResult = $admin->login('johndoe96@gmail.com', 'existpass');
+        $actualResult = $admin->login('johndoe96@gmail.com', '123123');
         $this->assertEquals($adminDataStub, $actualResult);
     }
 

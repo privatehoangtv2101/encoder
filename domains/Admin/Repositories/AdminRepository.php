@@ -7,4 +7,6 @@ interface AdminRepository {
     public function findByID($id);
     
     public function getAdminByEmail($email);
+    
+    public function storeLoginData($user);
 }

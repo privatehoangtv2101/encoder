@@ -15,10 +15,11 @@
         <div id="app"></div>
         <div id="login-page-wrapper">
             <div id="login-form-wrapper">
-                <form id="login-form" method="post" action="{{action('Admin@login')}}">
+                <form id="login-form" method="post" action="http://encoder.dev/login">
+                    {{ csrf_field() }}
                     <div id="form-title">Login Form</div>
                     <div class="input-field">
-                        <input type="text" name="user_name" placeholder="Nhập username..."/>
+                        <input type="text" name="email" placeholder="Nhập username..."/>
                         <div class='icon'><i class="fa fa-user" aria-hidden="true"></i></div>
                     </div>
                     <div class="input-field">

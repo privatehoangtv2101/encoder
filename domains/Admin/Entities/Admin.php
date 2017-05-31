@@ -22,7 +22,6 @@ class Admin {
         if(!$loginData){
             return false;
         }
-        
         $isCorrectPassword = PasswordService::isCorrectPassword($password,$loginData['password']);
         if(!$isCorrectPassword){
             return false;
@@ -33,6 +32,7 @@ class Admin {
             return false;
         }
         
+        $this->adminRepository->storeLoginData($loginData);
         return $loginData;
     }
 

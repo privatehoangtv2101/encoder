@@ -1,4 +1,8 @@
 default:
+    suites:
+        default:
+          paths: [ %paths.base%/tests/Feature ]
+          contexts: [ Tests\Feature\Bootstrap\FeatureContext ]
     extensions:
         Laracasts\Behat:
             env_path: .env.behat

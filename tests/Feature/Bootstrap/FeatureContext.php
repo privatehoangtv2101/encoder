@@ -1,15 +1,22 @@
 <?php
 
+namespace Tests\Feature\Bootstrap;
+
 use Behat\Behat\Hook\Scope\AfterStepScope;
 use Behat\Behat\Tester\Exception\PendingException;
 use Behat\Behat\Context\Context;
 use Behat\Behat\Context\SnippetAcceptingContext;
 use Behat\Gherkin\Node\PyStringNode;
 use Behat\Gherkin\Node\TableNode;
+use Behat\Behat\Event\ScenarioEvent;
 #This will be needed if you require "behat/mink-selenium2-driver"
 #use Behat\Mink\Driver\Selenium2Driver;
 use Behat\MinkExtension\Context\MinkContext;
 use PHPUnit_Framework_Assert as PHPUnit;
+use Auth;
+use Laracasts\Behat\Context\Migrator;
+use Laracasts\Behat\Context\DatabaseTransactions;
+use Artisan;
 
 /**
  * Defines application features from the specific context.
@@ -24,7 +31,19 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
      * context constructor through behat.yml.
      */
     public function __construct() {
-        
+        ini_set('max_execution_time', 700);
+    }
+
+    /** @BeforeScenario  */
+    public static function setupFeature() {
+        Artisan::call('migrate:rollback');
+        Artisan::call('migrate');
+        Artisan::call('db:seed');
+    }
+
+    /** @AfterScenario */
+    public static function teardownFeature() {
+        Artisan::call('migrate:rollback');
     }
 
     /**
@@ -38,7 +57,7 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
      * @Given I have logged in
      */
     public function iHaveLoggedIn() {
-        throw new PendingException();
+        Auth::loginUsingId(1);
     }
 
     /**
@@ -46,6 +65,20 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
      */
     public function iShouldBeRedirectTo($page) {
         $this->assertPageAddress($page);
+    }
+
+    /**
+     * @Given a super user called :arg1 exists
+     */
+    public function aSuperUserCalledExists($arg1) {
+        throw new PendingException();
+    }
+
+    /**
+     * @Given a member called :arg1 exists
+     */
+    public function aMemberCalledExists($arg1) {
+        throw new PendingException();
     }
 
 }

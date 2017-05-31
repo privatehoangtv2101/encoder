@@ -4,8 +4,9 @@ namespace Domains\Admin\Repositories;
 
 use Domains\Admin\Repositories\AdminRepository;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Auth;
 
-class AdminRepositoryEloquent extends Authenticatable {
+class AdminRepositoryEloquent extends Authenticatable implements AdminRepository {
 
     /**
      * The table associated with the model.
@@ -20,7 +21,7 @@ class AdminRepositoryEloquent extends Authenticatable {
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'status'
+        'name', 'email', 'password','password','status'
     ];
 
     /**
@@ -29,7 +30,21 @@ class AdminRepositoryEloquent extends Authenticatable {
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+         'remember_token',
     ];
+
+    public function findByID($id) {
+        
+    }
+
+    public function getAdminByEmail($email) {
+        return AdminRepositoryEloquent::where('email', '=', $email)
+                        ->first()
+                        ->toArray();
+    }
+
+    public function storeLoginData($user) {
+        Auth::loginUsingId($user['id']);
+    }
 
 }

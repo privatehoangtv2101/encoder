@@ -2,20 +2,22 @@
 
 namespace Domains\Admin\Services;
 
+use Hash;
+
 /**
  * @author Tran Van Hoang <hoangtv2101@gmail.com>
  */
 class PasswordService {
 
     public static function hash($plainText) {
-        return md5(sha1($plainText) . '5uj');
+        return bcrypt($plainText);
     }
-    
-    public static function isCorrectPassword($inputPassword,$hashPassword){
-        if(self::hash($inputPassword) !== $hashPassword){
+
+    public static function isCorrectPassword($inputPassword, $hashPassword) {
+        if (!Hash::check($inputPassword, $hashPassword)){
             return false;
         }
-        
+
         return true;
     }
 
