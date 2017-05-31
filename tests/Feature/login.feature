@@ -25,6 +25,14 @@ Scenario: Guest login with wrong email will not be able to login successfully
     And I press "Đăng nhập"
     Then I should be on "/login"
 
+Scenario: Guest login to disabled account so he can't login successfully
+    Given I have not logged in
+    When I go to "/login"
+    And I fill in "email" with "johndoe96@gmail.com"
+    And I fill in "password" with "doe1996"
+    And I press "Đăng nhập"
+    Then I should be on "/login"
+
 Scenario: Guest login with valid account
     Given I have not logged in
     When I go to "/login"
