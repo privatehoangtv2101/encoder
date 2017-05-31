@@ -38,9 +38,13 @@ class AdminRepositoryEloquent extends Authenticatable implements AdminRepository
     }
 
     public function getAdminByEmail($email) {
-        return AdminRepositoryEloquent::where('email', '=', $email)
-                        ->first()
-                        ->toArray();
+        $data = AdminRepositoryEloquent::where('email', '=', $email)
+                        ->first();
+        if(!$data){
+            return false;
+        }
+        
+        return $data->toArray();
     }
 
     public function storeLoginData($user) {
