@@ -6,5 +6,5 @@ interface AdminRepository {
 
     public function findByID($id);
     
-    public function login($email);
+    public function getAdminByEmail($email);
 }

@@ -9,7 +9,7 @@ use Domains\Admin\Services\PasswordService;
 class Admin {
 
     /**
-     * @var \Domains\Admin\Repositories\AdminRepository  
+     * @var AdminRepository  
      */
     private $adminRepository;
 
@@ -18,7 +18,7 @@ class Admin {
     }
 
     public function login($email, $password) {
-        $loginData = $this->adminRepository->login($email);
+        $loginData = $this->adminRepository->getAdminByEmail($email);
         if(!$loginData){
             return false;
         }
