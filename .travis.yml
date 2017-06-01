@@ -3,13 +3,16 @@ php:
     - '5.6'
 services:
     - mysql
-before_install:
-    - php /home/travis/.phpenv/versions/5.6/bin/composer self-update
-install:
-    - composer install
+dist: trusty
 addons:
     hosts:
         - student.dev
+    chrome: stable
+before_install:
+    - php /home/travis/.phpenv/versions/5.6/bin/composer self-update
+    - google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost
+install:
+    - composer install
 before_script:
     - mysql -e 'create database bict_encoder;'
     # starting demo server
@@ -24,10 +27,11 @@ before_script:
     - sudo cp -f resources/travis-ci-apache /etc/apache2/sites-available/default
     - sudo sed -e "s?%TRAVIS_BUILD_DIR%?$(pwd)?g" --in-place /etc/apache2/sites-available/default
     - sudo service apache2 restart
-    # se server
-    - npm install selenium-standalone@latest -g
-    - selenium-standalone install
-    - selenium-standalone start
+    - "export DISPLAY=:99.0"
+    - "sh -e /etc/init.d/xvfb start"
+    - sleep 3 # give xvfb some time to start
+    - rackup  # start a Web server
+    - sleep 3 # give Web server some time to bind to sockets, etc
 script:
     - php artisan migrate
     - php artisan key:generate
