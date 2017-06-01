@@ -31,7 +31,6 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
      * context constructor through behat.yml.
      */
     public function __construct() {
-        ini_set('max_execution_time', 700);
     }
 
     /** @BeforeFeature  */
