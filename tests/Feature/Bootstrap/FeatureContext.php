@@ -17,7 +17,9 @@ use Auth;
 use Laracasts\Behat\Context\Migrator;
 use Laracasts\Behat\Context\DatabaseTransactions;
 use Artisan;
-
+use Laracasts\Behat\ServiceContainer\LaravelBooter;
+use Domains\Admin\Repositories\AdminRepositoryEloquent;
+use Behat\Mink\Session;
 /**
  * Defines application features from the specific context.
  */
@@ -31,6 +33,9 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
      * context constructor through behat.yml.
      */
     public function __construct() {
+        putenv('APP_ENV=behat');
+        $laravelBooter = new LaravelBooter(__DIR__ . '/../../../');
+        $laravelBooter->boot();
     }
 
     /** @BeforeFeature  */
@@ -55,7 +60,15 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
      * @Given I have logged in
      */
     public function iHaveLoggedIn() {
-        Auth::loginUsingId(1);
+        $user = AdminRepositoryEloquent::where('email', 'hoang@gmail.com')->first();
+        Auth::login($user);
+//        $selenium2Driver = new Behat\Mink\Driver\Selenium2Driver();
+//        $session = new \Behat\Mink\Session($selenium2Driver);
+//        $session->start();
+//        if ($this->getSession()->getDriver() instanceof \Behat\Mink\Driver\Selenium2Driver) {
+//            Auth::loginUsingId(1);
+//            $this->visit('http://encoder.dev');
+//        }
     }
 
     /**
@@ -77,6 +90,40 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
      */
     public function aMemberCalledExists($arg1) {
         throw new PendingException();
+    }
+
+    /**
+     * @Given /^I am logged in as "([^"]*)"$/
+     */
+    public function iAmLoggedInAs($email) {
+        die('dkm');
+        // Destroy the previous session
+        if (Session::isStarted()) {
+            Session::regenerate(true);
+        } else {
+            Session::start();
+        }
+        // Login the user and since the driver and this code now
+        // share a session this will also login the driver session
+        $user = AdminRepositoryEloquent::where('email', $email)->first();
+        Auth::login($user);
+
+        // Save the session data to disk or to memcache
+        Session::save();
+
+        // Hack for Selenium
+        // Before setting a cookie the browser needs to be launched
+        if ($this->getSession()->getDriver() instanceof \Behat\Mink\Driver\Selenium2Driver) {
+            $this->visit('login');
+        }
+
+        // Get the session identifier for the cookie
+        $encryptedSessionId = Crypt::encrypt(Session::getId());
+        $cookieName = Session::getName();
+
+        // Set the cookie
+        $minkSession = $this->getSession();
+        $minkSession->setCookie($cookieName, $encryptedSessionId);
     }
 
 }

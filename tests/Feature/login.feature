@@ -42,7 +42,11 @@ Scenario: Guest login with valid account
     Then I should be on the homepage
 
 Scenario: Admin(logged in) visit login page
-    Given I have logged in
+    Given I have not logged in
     When I go to "/login"
-    Then I should be redirect to "/"
-    And I should see "Bict encoder"
+    And I fill in "email" with "hoang@gmail.com"
+    And I fill in "password" with "123123"
+    And I press "Đăng nhập"
+    Then I should be on the homepage
+    When I go to "/login"
+    Then I should be on the homepage

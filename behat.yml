@@ -1,8 +1,10 @@
 default:
     suites:
         default:
-          paths: [ %paths.base%/tests/Feature ]
-          contexts: [ Tests\Feature\Bootstrap\FeatureContext ]
+            paths: [ %paths.base%/tests/Feature ]
+            contexts: [ Tests\Feature\Bootstrap\FeatureContext ]
+            mink_session: default
+            mink_javascript_session: selenium2
     extensions:
         Laracasts\Behat:
             env_path: .env.behat
@@ -10,3 +12,9 @@ default:
             default_session: laravel
             base_url: http://encoder.dev
             laravel: ~
+            browser_name: chrome
+            sessions:
+                default:
+                    goutte: ~
+                selenium2:
+                    selenium2: ~

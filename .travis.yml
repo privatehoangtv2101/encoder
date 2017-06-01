@@ -24,6 +24,13 @@ before_script:
     - sudo cp -f resources/travis-ci-apache /etc/apache2/sites-available/default
     - sudo sed -e "s?%TRAVIS_BUILD_DIR%?$(pwd)?g" --in-place /etc/apache2/sites-available/default
     - sudo service apache2 restart
+    # se server
+    - "sh -e /etc/init.d/xvfb start"
+    - "export DISPLAY=:99.0"
+    - "wget http://selenium.googlecode.com/files/selenium-server-standalone-2.31.0.jar"
+    - "java -jar selenium-server-standalone-2.31.0.jar > /dev/null &"
+    - sleep 5
+	
     
 script:
     - php artisan migrate
