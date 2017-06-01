@@ -25,11 +25,9 @@ before_script:
     - sudo sed -e "s?%TRAVIS_BUILD_DIR%?$(pwd)?g" --in-place /etc/apache2/sites-available/default
     - sudo service apache2 restart
     # se server
-    - "sh -e /etc/init.d/xvfb start"
-    - "export DISPLAY=:99.0"
-    - "wget http://selenium.googlecode.com/files/selenium-server-standalone-2.31.0.jar"
-    - "java -jar selenium-server-standalone-2.31.0.jar > /dev/null &"
-    - sleep 5
+    - npm install selenium-standalone@latest -g
+    - selenium-standalone install
+    - selenium-standalone start
 script:
     - php artisan migrate
     - php artisan key:generate
